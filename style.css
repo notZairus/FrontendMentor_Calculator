@@ -107,7 +107,7 @@ main .header .theme-info .theme-btn>div {
   font-size: 2rem;
   text-align: right;
   font-weight: 700;
-  padding: 40px 25px 30px;
+  padding: 45px 25px 5px;
   box-sizing: border-box;
 }
 
@@ -169,4 +169,17 @@ main .header .theme-info .theme-btn>div {
 
 .btn-container .equal:active {
   background-color: var(--equal-btn-active);
+}
+
+.textbox-container {
+  position: relative;
+}
+
+#left {
+  width: 95%;
+  height: 35px;
+  position:absolute;
+  top: 34px;
+  text-align: right;
+  color: var(--text-color);
 }

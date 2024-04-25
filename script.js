@@ -108,62 +108,72 @@ function theme3() {
 
 let textBox = document.querySelector("#text-box")
 let btnContainer = document.querySelector(".btn-container");
+let left = document.getElementById("left");
+let leftOperand = "";
+let rightOperand = "";
+let operation = "";
 
 btnContainer.addEventListener("click", (event) => {
+  let target = event.target.textContent;
 
-  if (event.target.textContent != "RESET" &&
-      event.target.textContent != "DEL" &&
-      event.target.textContent != "=" &&
-      event.target.tagName != "DIV") {
-        textBox.value += event.target.textContent;
+  if (event.target.tagName == "DIV") {
+    return;
   }
 
-  if (event.target.textContent == "RESET") {
-    textBox.value = "";
+  if (target == "+" || target == "-" || target == "x" || target == "/") {
+    if (leftOperand != "") {
+      leftOperand = calculate(leftOperand, textBox.value, operation);
+      operation = target;
+      left.textContent = leftOperand + target;
+      textBox.value = "";
+    }
+    else {
+      leftOperand = textBox.value;
+      operation = target;
+      left.textContent = leftOperand + target;
+      textBox.value = "";
+    }
   }
-  
-  if (event.target.textContent == "DEL") {
-    let temporaryText = textBox.value;
-    let array = temporaryText.split("");
-    array.splice(-1, 1);
-    textBox.value = array.join("");
+  else if (target == "DEL" || target == "RESET" || target == "="){
+    if (target == "DEL") {
+      let array = textBox.value.split("");
+      array.splice(-1, 1);
+      textBox.value = array.join("");
+    }
+    else if (target == "RESET") {
+      leftOperand = "";
+      rightOperand = "";
+      operation = "";
+      textBox.value = "";
+      left.textContent = "";
+    }
+    else {
+      rightOperand = textBox.value;
+      textBox.value = calculate(leftOperand, rightOperand, operation);
+      left.textContent = "";
+      leftOperand = "";
+      rightOperand = "";
+      operation = "";
+    }
   }
-  
-  if (event.target.textContent == "=") {
-    textBox.value = calculate(textBox.value);
+  else {
+    textBox.value += target;
   }
 })
 
-function calculate(value) {
-  let arr = value.split("");
-  let left = "" ;
-  let right = "";
-  let ope = "k";
-
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] == "+" || arr[i] == "-" || arr[i] == "x" || arr[i] == "/") {
-      ope = arr[i];
-      i++;
-    }
-
-    if (ope == "k") {
-      left += arr[i];
-    } 
-    else {
-      right += arr[i];
-    }
-  }
-
+function calculate(left, right, ope) {
   switch (ope) {
     case "+":
       return parseFloat(left) + parseFloat(right);
+      break;
     case "-":
       return parseFloat(left) - parseFloat(right);
+      break;
     case "x":
       return parseFloat(left) * parseFloat(right);
+      break;
     case "/":
       return parseFloat(left) / parseFloat(right);
-    default: 
-      return "Dont know such operation";
+      break;
   }
 }
