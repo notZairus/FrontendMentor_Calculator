@@ -105,7 +105,6 @@ function theme3() {
 }
 
 
-
 let textBox = document.querySelector("#text-box")
 let btnContainer = document.querySelector(".btn-container");
 let left = document.getElementById("left");
@@ -121,7 +120,7 @@ btnContainer.addEventListener("click", (event) => {
   }
 
   if (target == "+" || target == "-" || target == "x" || target == "/") {
-    if (leftOperand != "") {
+    if (leftOperand != "" || operation != "") {
       leftOperand = calculate(leftOperand, textBox.value, operation);
       operation = target;
       left.textContent = leftOperand + target;

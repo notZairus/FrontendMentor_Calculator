@@ -28,6 +28,7 @@
 
 * {
   font-family: "League Spartan";
+  transition: all 0.2s;
 }
 
 p {
@@ -181,5 +182,5 @@ main .header .theme-info .theme-btn>div {
   position:absolute;
   top: 34px;
   text-align: right;
-  color: var(--text-color);
+  color: var(--delres-btn-shadow);
 }
